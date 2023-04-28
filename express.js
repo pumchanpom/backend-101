@@ -7,10 +7,11 @@ const app = express();
 // });
 
 // wild card >> /:menu
+// GET
 app.get("/:menu", (req, res) => {
   console.log("Request Parameter");
   console.log(req.params);
-  const { menu } = req.params;
+  const { menu } = req.params; // destructuring assignment
   const chickenRice = {
     rice: "greasy rice",
   };
@@ -26,6 +27,32 @@ app.get("/:menu", (req, res) => {
       .send(`Please accept our apology. We are no longer serving ${menu}`);
   }
   res.send(chickenRice);
+});
+
+// POST
+
+const preOrders = [];
+
+app.post("/:menu", (req, res) => {
+  const { menu } = req.params;
+  const preOrder = {
+    id: preOrders.length,
+    menu: menu,
+  };
+  preOrders.push(preOrder);
+  res.status(200).send(`Your order id is ${preOrder.id}: ${preOrder.menu}`);
+});
+
+// DELETE
+
+app.delete("/:menu/:orderId", (req, res) => {
+  const { menu, orderId } = req.params;
+  const indexOrder = preOrders.findIndex((order) => order.id == orderId);
+  if (indexOrder === -1) {
+    return res.status(404).send(`Order ID ${orderId} is not found.`);
+  }
+  preOrders[indexOrder] = null;
+  res.status(200).send(`Order ID ${orderId} has been cancelled.`);
 });
 
 // app.get("/chicken-rice", (req, res) => {
