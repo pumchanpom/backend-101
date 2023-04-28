@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "express": "^4.18.2",
+    "nodemon": "^2.0.22",
     "prompt-sync": "^4.2.0",
     "promptpay-qr": "^0.5.0",
     "qrcode-terminal": "^0.12.0"
@@ -16,5 +17,6 @@
     "express"
   ],
   "author": "Pum Chanpom",
-  "license": "ISC"
+  "license": "ISC",
+  "type": "module"
 }
