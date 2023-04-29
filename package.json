@@ -17,6 +17,5 @@
     "express"
   ],
   "author": "Pum Chanpom",
-  "license": "ISC",
-  "type": "module"
+  "license": "ISC"
 }

@@ -1,5 +1,6 @@
-// const express = require("express");
-import express from "express";
+// import express from "express";
+const express = require("express");
+
 const app = express();
 
 // GET -- "Hello, World!" in ExpressJS
@@ -54,11 +55,12 @@ app.post("/pre-orders", (req, res) => {
 
 // DELETE
 
-app.delete("/:menu/:orderId", (req, res) => {
-  const { menu, orderId } = req.params;
+app.delete("/pre-orders/:orderId", (req, res) => {
+  const { orderId } = req.params;
+
   const indexOrder = preOrders.findIndex((order) => order.id == orderId);
   if (indexOrder === -1) {
-    return res.status(404).send(`Order ID ${orderId} is not found.`);
+    res.status(404).send(`Order ID ${orderId} is not found.`);
   }
   preOrders[indexOrder] = null;
   res.status(200).send(`Order ID ${orderId} has been cancelled.`);
