@@ -2,14 +2,15 @@
 import express from "express";
 const app = express();
 
+// GET -- "Hello, World!" in ExpressJS
 // app.get("/", (req, res) => {
 //   res.end("Hello, World!");
 // });
 
-// wild card >> /:menu
 // GET
+// wild card >> /:menu
 app.get("/:menu", (req, res) => {
-  console.log("Request Parameter");
+  console.log("Request Parameters");
   console.log(req.params);
   const { menu } = req.params; // destructuring assignment
   const chickenRice = {
@@ -33,14 +34,22 @@ app.get("/:menu", (req, res) => {
 
 const preOrders = [];
 
-app.post("/:menu", (req, res) => {
-  const { menu } = req.params;
+app.post("/pre-orders", (req, res) => {
+  // const { menu } = req.params;
+  const { menu, size } = req.query;
+  console.log("Request Query: ");
+  console.log(req.query);
   const preOrder = {
     id: preOrders.length,
     menu: menu,
+    size: size,
   };
   preOrders.push(preOrder);
-  res.status(200).send(`Your order id is ${preOrder.id}: ${preOrder.menu}`);
+  res
+    .status(200)
+    .send(
+      `Your order id is ${preOrder.id}: ${preOrder.menu} in ${preOrder.size}`
+    );
 });
 
 // DELETE
@@ -54,6 +63,8 @@ app.delete("/:menu/:orderId", (req, res) => {
   preOrders[indexOrder] = null;
   res.status(200).send(`Order ID ${orderId} has been cancelled.`);
 });
+
+// GET -- Samples
 
 // app.get("/chicken-rice", (req, res) => {
 //   const chickenRice = {
